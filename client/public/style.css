@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  padding: 0 2.5%;
+}
+.col {
+  display: inline-block;
+  width: 30%;
+  margin-right: 10px;
+}
+select {
+  width: 100%;
+}
+.form-row {
+  text-align: center;
+}
+.table-head-row {
+  background: #017bff;
+  color: rgb(231, 231, 231);
+}
+tbody {
+  background: #363a3f;
+  color: rgb(231, 231, 231);
+}
+tbody:hover {
+  background: #5f6368;
+}
