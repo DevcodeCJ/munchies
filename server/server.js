@@ -1,6 +1,7 @@
 // Imports
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const morgan = require("morgan");
 const db = require("./db");
 
@@ -8,6 +9,8 @@ const db = require("./db");
 const app = express();
 
 // MIDDLEWARE
+/// Allow Cross-Origin Resourse Sharing (CORS)
+app.use(cors());
 /// Parse data to the request body
 app.use(express.json());
 /// Morgan
@@ -109,7 +112,7 @@ app.delete("/api/v1/restaurants/:id", async (req, res) => {
 });
 
 // Configuring PORT and starting Server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up and listening on port ${port}`);
 });

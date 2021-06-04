@@ -9,7 +9,7 @@ body {
 .col {
   display: inline-block;
   width: 30%;
-  margin-right: 10px;
+  margin-right: 1%;
 }
 select {
   width: 100%;
@@ -25,6 +25,10 @@ tbody {
   background: #363a3f;
   color: rgb(231, 231, 231);
 }
-tbody:hover {
-  background: #5f6368;
+.table-row:hover {
+  background: #484d52;
+}
+
+.add-btn {
+  width: 7%;
 }

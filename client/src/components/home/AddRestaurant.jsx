@@ -25,7 +25,7 @@ function AddRestaurant() {
               <option value="5">$$$$$</option>
             </select>
           </div>
-          <button className="btn btn-primary">Add</button>
+          <button className="add-btn btn btn-primary">Add</button>
         </div>
       </form>
     </div>

@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
+import munchies from "./apis/munchies";
 
 function RestaurantList() {
+  useEffect(async () => {
+    try {
+      const response = await munchies.get("./");
+      console.log(response);
+    } catch (error) {}
+  }, []);
+
   return (
     <div className="list-group">
       <table className="table">
@@ -15,7 +23,21 @@ function RestaurantList() {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {/* Row 1 */}
+          <tr className="table-row">
+            <td>McDonalds</td>
+            <td>New York</td>
+            <td>$$</td>
+            <td>Rating</td>
+            <td>
+              <button className="btn btn-warning">Update</button>
+            </td>
+            <td>
+              <button className="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+          {/* Row 2 */}
+          <tr className="table-row">
             <td>McDonalds</td>
             <td>New York</td>
             <td>$$</td>
