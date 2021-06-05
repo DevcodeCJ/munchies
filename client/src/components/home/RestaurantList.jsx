@@ -1,13 +1,39 @@
-import React, { useEffect } from "react";
-import munchies from "./apis/munchies";
+import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router";
+import { RestaurantsContext } from "../../contextAPI/RestaurantsContext";
+import Munchies from "./apis/Munchies";
 
 function RestaurantList() {
-  useEffect(async () => {
-    try {
-      const response = await munchies.get("./");
-      console.log(response);
-    } catch (error) {}
+  // UseContext
+  const { restaurants, setRestaurants } = useContext(RestaurantsContext);
+  // Browser History Object
+  let history = useHistory();
+  // useEffect
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Munchies.get("/");
+        setRestaurants(response.data.data.restaurants);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
   }, []);
+  // Handle Delete
+  const handleDelete = async (id) => {
+    try {
+      const response = await Munchies.delete(`/${id}`);
+      setRestaurants(restaurants.filter((restaurant) => restaurant.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // Handle Updates
+  const handleUpdate = (id) => {
+    history.push(`/restaurants/${id}/update`);
+  };
 
   return (
     <div className="list-group">
@@ -23,8 +49,34 @@ function RestaurantList() {
           </tr>
         </thead>
         <tbody>
-          {/* Row 1 */}
-          <tr className="table-row">
+          {restaurants &&
+            restaurants.map((restaurant) => {
+              return (
+                <tr key={restaurant.id} className="table-row">
+                  <td>{restaurant.name}</td>
+                  <td>{restaurant.location}</td>
+                  <td>{"$".repeat(restaurant.price_range)}</td>
+                  <td>Rating</td>
+                  <td>
+                    <button
+                      onClick={() => handleUpdate(restaurant.id)}
+                      className="btn btn-warning"
+                    >
+                      Update
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleDelete(restaurant.id)}
+                      className="btn btn-danger"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          {/* <tr className="table-row">
             <td>McDonalds</td>
             <td>New York</td>
             <td>$$</td>
@@ -36,7 +88,6 @@ function RestaurantList() {
               <button className="btn btn-danger">Delete</button>
             </td>
           </tr>
-          {/* Row 2 */}
           <tr className="table-row">
             <td>McDonalds</td>
             <td>New York</td>
@@ -48,7 +99,7 @@ function RestaurantList() {
             <td>
               <button className="btn btn-danger">Delete</button>
             </td>
-          </tr>
+          </tr> */}
         </tbody>
       </table>
     </div>
