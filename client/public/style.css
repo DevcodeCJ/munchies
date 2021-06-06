@@ -28,7 +28,15 @@ tbody {
 .table-row:hover {
   background: #484d52;
 }
-
 .add-btn {
   width: 7%;
+}
+.price-update {
+  width: 100%;
+}
+.price-update select {
+  width: 50%;
+}
+.price-label {
+  display: block;
 }

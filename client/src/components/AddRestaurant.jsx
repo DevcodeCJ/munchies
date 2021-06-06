@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { RestaurantsContext } from "../../contextAPI/RestaurantsContext";
+import { RestaurantsContext } from "../contextAPI/RestaurantsContext";
 import Munchies from "./apis/Munchies";
 
 function AddRestaurant() {
