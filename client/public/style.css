@@ -14,9 +14,6 @@ body {
 select {
   width: 100%;
 }
-.form-row {
-  text-align: center;
-}
 .table-head-row {
   background: #017bff;
   color: rgb(231, 231, 231);
@@ -39,4 +36,18 @@ tbody {
 }
 .price-label {
   display: block;
+}
+.card {
+  width: 31%;
+  max-width: 31%;
+  margin-right: 20px;
+}
+.reviews-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.review-info {
+  display: inline-block;
 }

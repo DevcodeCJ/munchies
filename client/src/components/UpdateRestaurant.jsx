@@ -64,7 +64,7 @@ function UpdateRestaurant() {
             type="text"
           />
         </div>
-        <div className="form-group price-update mb-4">
+        <div className="form-group price-update mb-4 col-6">
           <label htmlFor="price_range" className="price-label">
             Price Range
           </label>

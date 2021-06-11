@@ -40,12 +40,17 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
   try {
     // Parameterized query - avoid sql injection vulnerabilities
     const text = "SELECT * FROM restaurants WHERE id = $1";
+    const reviewsText = "SELECT * FROM reviews WHERE restaurant_id = $1";
     const values = [req.params.id];
-    const result = await db.query(text, values);
+
+    const restaurant = await db.query(text, values);
+    const reviews = await db.query(reviewsText, values);
+
     res.status(200).json({
       status: "success",
       data: {
-        restaurant: result.rows[0],
+        restaurant: restaurant.rows[0],
+        reviews: reviews.rows,
       },
     });
   } catch (error) {
@@ -105,6 +110,29 @@ app.delete("/api/v1/restaurants/:id", async (req, res) => {
     const result = await db.query(text, values);
     res.status(200).json({
       status: "success",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+/// Add a Review
+app.post("/api/v1/restaurants/:id/addReview", async (req, res) => {
+  try {
+    const text =
+      "INSERT INTO reviews (restaurant_id, name, review, rating) VALUES ($1, $2, $3, $4) returning *";
+    const values = [
+      req.params.id,
+      req.body.name,
+      req.body.review,
+      req.body.rating,
+    ];
+    const newReview = await db.query(text, values);
+    res.status(201).json({
+      status: "success",
+      data: {
+        review: newReview.rows[0],
+      },
     });
   } catch (error) {
     console.log(error);
