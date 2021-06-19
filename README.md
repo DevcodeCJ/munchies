@@ -2,9 +2,7 @@
 
 **Hello!** 👋
 
-A React | NodeJS | Express app built to add and review restaurants by location and price range. It used PostgreSQL db on the backend for storage.
-
-- 👉 Now hosted on Heroku. Visit the app [here](https://blogbase-app.herokuapp.com/blogs)
+A React | NodeJS | Express app built to add and review restaurants by location and price range, connected to PostgreSQL db on the backend for storage.
 
 ## Building the project
 
