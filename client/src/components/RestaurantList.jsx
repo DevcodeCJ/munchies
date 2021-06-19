@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import { RestaurantsContext } from "../contextAPI/RestaurantsContext";
 import Munchies from "./apis/Munchies";
+import StarRating from "./StarRating";
 
 function RestaurantList() {
   // UseContext
@@ -40,12 +41,24 @@ function RestaurantList() {
   const handleSelect = (id) => {
     history.push(`/restaurants/${id}`);
   };
+  // Render Rating
+  const renderRating = (restaurant) => {
+    if (!restaurant.count) {
+      return <span className="text-warning">0 reviews</span>;
+    }
+    return (
+      <>
+        <StarRating rating={restaurant.avg_rating} />
+        <span className="text-warning ml-1">({restaurant.count})</span>
+      </>
+    );
+  };
 
   return (
     <div className="list-group">
       <table className="table">
         <thead>
-          <tr className="bg-primary table-head-row">
+          <tr className="table-head-row">
             <th scope="col">Restaurant</th>
             <th scope="col">Location</th>
             <th scope="col">Price Range</th>
@@ -68,7 +81,7 @@ function RestaurantList() {
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{"$".repeat(restaurant.price_range)}</td>
-                  <td>Rating</td>
+                  <td>{renderRating(restaurant)}</td>
                   <td>
                     <button
                       onClick={(e) => handleUpdate(e, restaurant.id)}

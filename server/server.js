@@ -20,8 +20,9 @@ app.use(morgan("dev"));
 /// Get all restaurants
 app.get("/api/v1/restaurants", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM restaurants;");
-    // console.log(result.rows);
+    const text =
+      "SELECT * FROM restaurants LEFT JOIN (SELECT restaurant_id, count(*), trunc(avg(rating), 1) AS avg_rating FROM reviews GROUP BY restaurant_id) reviews ON restaurants.id = reviews.restaurant_id";
+    const result = await db.query(text);
     res.status(200).json({
       status: "success",
       results: result.rows.length,
@@ -39,7 +40,8 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
   // console.log(req.params.id);
   try {
     // Parameterized query - avoid sql injection vulnerabilities
-    const text = "SELECT * FROM restaurants WHERE id = $1";
+    const text =
+      "SELECT * FROM restaurants LEFT JOIN (SELECT restaurant_id, count(*), trunc(avg(rating), 1) AS avg_rating FROM reviews GROUP BY restaurant_id) reviews ON restaurants.id = reviews.restaurant_id WHERE id = $1";
     const reviewsText = "SELECT * FROM reviews WHERE restaurant_id = $1";
     const values = [req.params.id];
 

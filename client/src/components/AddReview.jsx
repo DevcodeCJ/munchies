@@ -1,27 +1,35 @@
 import React, { useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import Munchies from "./apis/Munchies";
 
 function AddReview() {
   const { id } = useParams();
+  const history = useHistory();
+  const location = useLocation();
   const [name, setName] = useState("");
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState("Rating");
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
-    await Munchies.post(`/${id}/addReview`, {
-      name,
-      review: reviewText,
-      rating,
-    });
+    try {
+      await Munchies.post(`/${id}/addReview`, {
+        name,
+        review: reviewText,
+        rating,
+      });
+      history.push("/");
+      history.push(location.pathname);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className="mb-2">
+    <div className="mb-2 add-review">
       <form action="">
         <div className="form-row mb-4">
-          <div className="form-group col-8 review-info">
+          <div className="form-group col-7 review-info">
             <label htmlFor="name">Name</label>
             <input
               value={name}
